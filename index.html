@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<head>
+  <style>
+
+  </style>
+  <title>
+
+  </title>
+
+</head>
+<body>
+
+    <div id=app></div>
+    <script>
+      
+     const app=document.querySelector('#app');
+      /* const state={
+            products:[]
+        }*/
+
+     const createNode =(type,className)=>{
+
+        let newNode=document.createElement(type);
+        if(className){                                    //CREATING CONSTRUCTION FOR TYPE AND CLASSNAME
+           newNode.createClass(className);
+        }
+        return newNode;
+     }
+
+     const append =(parent,child)=>{
+
+        parent.append(child);
+     }
+
+     const createHeader =()=>{                           //HEADER
+         const header = createNode('div','header')
+         const createH=createNode('h1','createH');
+         createH.innerHTML='Acme Product Offerings';
+         append(header,createH);
+         append(app,header);
+         return header;
+     }
+     const createBody=()=>{                         //BODY
+         const body=createNode('div','body');
+         append(app,body)
+         return body
+     }
+      /*const companies=`https://acme-users-api-rev.herokuapp.com/api/companies`;
+
+      const products=`https://acme-users-api-rev.herokuapp.com/api/products`;
+      const offerings=`https://acme-users-api-rev.herokuapp.com/api/offerings`;
+      Promise.all([fetch(companies),fetch(products),fetch(offerings)]).then(response=>Promise.all(response.map(r=>r.json()))).
+      then*/
+      fetch(`https://acme-users-api-rev.herokuapp.com/api/products`).then(response =>response.json).
+      then(data=>{render(data.products)});
+
+      const render=(products)=>{
+            products.map(product =>{         //RENDER NOT WORKING
+          let names=document.createElement('div');
+          names.classList.add('names');
+          names.innerText=`${products.name}`;
+          createBody().append(names);
+        })
+
+  
+      }
+        
+    </script>
+</body>
+
+</html>
